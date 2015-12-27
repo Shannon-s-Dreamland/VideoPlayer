@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QS8-kM-H8H">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Player View Controller-->
+        <scene sceneID="1Ry-2r-bdJ">
+            <objects>
+                <viewController storyboardIdentifier="PlayerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QS8-kM-H8H" customClass="PlayerViewController" customModule="TestPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RVo-q6-s8n"/>
+                        <viewControllerLayoutGuide type="bottom" id="WZ6-gh-U3b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pCw-WT-1fU" customClass="PlayerView" customModule="TestPlayer" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxr-9t-FLi" userLabel="Play Control View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGF-mV-tAS" userLabel="Mask View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="YwE-kT-ahY">
+                                        <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efL-Sk-p9Z" userLabel="PlayControl">
+                                        <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ROX-Kv-clD">
+                                                <rect key="frame" x="563" y="3" width="27" height="32"/>
+                                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                <state key="normal" image="news_krtv_fullscreen"/>
+                                                <connections>
+                                                    <action selector="toggleFullscreen:" destination="QS8-kM-H8H" eventType="touchUpInside" id="KpS-RD-7X0"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJC-VW-RaF" userLabel="Elapse Label">
+                                                <rect key="frame" x="15" y="12.5" width="31.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwH-9e-O3I" userLabel="ToalTime">
+                                                <rect key="frame" x="464.5" y="12.5" width="31.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Zb-wT-NGS">
+                                                <rect key="frame" x="516" y="3" width="27" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" id="782-vN-652"/>
+                                                    <constraint firstAttribute="height" id="XEZ-k4-0nf"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                <state key="normal" image="news_krtv_share"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="782-vN-652"/>
+                                                        <exclude reference="XEZ-k4-0nf"/>
+                                                    </mask>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="share:" destination="QS8-kM-H8H" eventType="touchUpInside" id="Mzk-qT-QdF"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZK-GQ-47I" customClass="PlayProgress" customModule="TestPlayer" customModuleProvider="target">
+                                                <rect key="frame" x="56.5" y="9" width="398.5" height="20"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="ZMh-HG-dgf"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="progressValue">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sliderHeight">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="progressColor">
+                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="leftoverColor">
+                                                        <color key="value" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="timeSliderTouchDown:" destination="QS8-kM-H8H" eventType="touchUpInside" id="J4V-1R-dyK"/>
+                                                    <action selector="touchSliderTouchUp:" destination="QS8-kM-H8H" eventType="touchUpOutside" id="3AM-yc-DT0"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="iZK-GQ-47I" firstAttribute="centerY" secondItem="TwH-9e-O3I" secondAttribute="centerY" id="36M-Mo-mNg"/>
+                                            <constraint firstAttribute="bottom" secondItem="ROX-Kv-clD" secondAttribute="bottom" constant="5" id="3jN-Rf-dXX"/>
+                                            <constraint firstItem="GJC-VW-RaF" firstAttribute="centerY" secondItem="iZK-GQ-47I" secondAttribute="centerY" id="B7v-YG-HZK"/>
+                                            <constraint firstItem="TwH-9e-O3I" firstAttribute="centerY" secondItem="5Zb-wT-NGS" secondAttribute="centerY" id="BnD-SQ-TsU"/>
+                                            <constraint firstItem="5Zb-wT-NGS" firstAttribute="leading" secondItem="TwH-9e-O3I" secondAttribute="trailing" constant="20" id="NKn-ax-4NQ"/>
+                                            <constraint firstAttribute="height" constant="40" id="Qi7-oQ-bNt"/>
+                                            <constraint firstAttribute="trailing" secondItem="ROX-Kv-clD" secondAttribute="trailing" constant="10" id="UFR-dT-mC1"/>
+                                            <constraint firstItem="iZK-GQ-47I" firstAttribute="leading" secondItem="GJC-VW-RaF" secondAttribute="trailing" constant="10" id="Ugh-Rh-YhO"/>
+                                            <constraint firstItem="TwH-9e-O3I" firstAttribute="leading" secondItem="iZK-GQ-47I" secondAttribute="trailing" constant="10" id="VkF-qM-Seo"/>
+                                            <constraint firstItem="ROX-Kv-clD" firstAttribute="leading" secondItem="5Zb-wT-NGS" secondAttribute="trailing" constant="20" id="Y6w-DJ-AHz"/>
+                                            <constraint firstItem="ROX-Kv-clD" firstAttribute="centerY" secondItem="iZK-GQ-47I" secondAttribute="centerY" id="sZP-me-Ge1"/>
+                                            <constraint firstItem="GJC-VW-RaF" firstAttribute="leading" secondItem="efL-Sk-p9Z" secondAttribute="leading" constant="15" id="zsB-ij-syf"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQj-8P-0zH" userLabel="Exit">
+                                        <rect key="frame" x="568" y="0.0" width="27" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="N6T-8E-Swn"/>
+                                            <constraint firstAttribute="width" constant="40" id="vLS-Q0-QMV"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="10" maxX="10" maxY="0.0"/>
+                                        <state key="normal" image="news_krtv_close"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="N6T-8E-Swn"/>
+                                                <exclude reference="vLS-Q0-QMV"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="exit:" destination="QS8-kM-H8H" eventType="touchUpInside" id="Tks-7k-cJC"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylC-qt-X0C" userLabel="Play">
+                                        <rect key="frame" x="286" y="285" width="29" height="29"/>
+                                        <state key="normal" image="news_krtv_play"/>
+                                        <connections>
+                                            <action selector="playPauseButtonWasPressed:" destination="QS8-kM-H8H" eventType="touchUpInside" id="k38-07-MES"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODe-vT-0jj">
+                                        <rect key="frame" x="15" y="13" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="sGF-mV-tAS" firstAttribute="top" secondItem="dxr-9t-FLi" secondAttribute="top" id="0il-Lt-mHT"/>
+                                    <constraint firstItem="YwE-kT-ahY" firstAttribute="centerX" secondItem="dxr-9t-FLi" secondAttribute="centerX" id="6JE-ed-yZQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="sGF-mV-tAS" secondAttribute="bottom" id="IUj-EI-Frf"/>
+                                    <constraint firstItem="efL-Sk-p9Z" firstAttribute="leading" secondItem="dxr-9t-FLi" secondAttribute="leading" id="J6u-r2-k7f"/>
+                                    <constraint firstItem="ylC-qt-X0C" firstAttribute="centerX" secondItem="dxr-9t-FLi" secondAttribute="centerX" id="WBB-iN-2Ki"/>
+                                    <constraint firstItem="sGF-mV-tAS" firstAttribute="leading" secondItem="dxr-9t-FLi" secondAttribute="leading" id="dWG-ks-y0E"/>
+                                    <constraint firstAttribute="trailing" secondItem="sGF-mV-tAS" secondAttribute="trailing" id="f5H-hm-K1Z"/>
+                                    <constraint firstItem="YwE-kT-ahY" firstAttribute="centerY" secondItem="dxr-9t-FLi" secondAttribute="centerY" id="fSz-AY-DrM"/>
+                                    <constraint firstItem="ylC-qt-X0C" firstAttribute="centerY" secondItem="dxr-9t-FLi" secondAttribute="centerY" id="gBM-dw-krI"/>
+                                    <constraint firstAttribute="trailing" secondItem="JQj-8P-0zH" secondAttribute="trailing" constant="5" id="ggq-xD-Pgv"/>
+                                    <constraint firstAttribute="trailing" secondItem="efL-Sk-p9Z" secondAttribute="trailing" id="h1a-Ap-M5N"/>
+                                    <constraint firstItem="JQj-8P-0zH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ODe-vT-0jj" secondAttribute="trailing" constant="25" id="izx-ll-DwG"/>
+                                    <constraint firstAttribute="bottom" secondItem="efL-Sk-p9Z" secondAttribute="bottom" id="jt2-Ph-2nO"/>
+                                    <constraint firstItem="JQj-8P-0zH" firstAttribute="top" secondItem="dxr-9t-FLi" secondAttribute="top" id="jxT-cb-Tmm"/>
+                                    <constraint firstItem="ODe-vT-0jj" firstAttribute="leading" secondItem="dxr-9t-FLi" secondAttribute="leading" constant="15" id="pkI-ef-1Rs"/>
+                                    <constraint firstItem="ODe-vT-0jj" firstAttribute="top" secondItem="dxr-9t-FLi" secondAttribute="topMargin" constant="5" id="rgW-B5-2Rg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dxr-9t-FLi" firstAttribute="leading" secondItem="pCw-WT-1fU" secondAttribute="leading" id="MLi-eY-Hmg"/>
+                            <constraint firstAttribute="bottom" secondItem="dxr-9t-FLi" secondAttribute="bottom" id="NBD-AJ-d7l"/>
+                            <constraint firstItem="dxr-9t-FLi" firstAttribute="top" secondItem="pCw-WT-1fU" secondAttribute="top" id="T44-Xp-Hpu"/>
+                            <constraint firstAttribute="trailing" secondItem="dxr-9t-FLi" secondAttribute="trailing" id="px5-LE-5ak"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="elapseLabel" destination="GJC-VW-RaF" id="UOS-7A-ALO"/>
+                        <outlet property="fullscreenButton" destination="ROX-Kv-clD" id="hzN-Gj-XxB"/>
+                        <outlet property="loadingIndicator" destination="YwE-kT-ahY" id="nMf-8V-D2e"/>
+                        <outlet property="maskView" destination="sGF-mV-tAS" id="wvg-C6-TUn"/>
+                        <outlet property="playControlView" destination="dxr-9t-FLi" id="Eog-xc-eyf"/>
+                        <outlet property="playPauseButton" destination="ylC-qt-X0C" id="saN-6O-uKr"/>
+                        <outlet property="playerView" destination="pCw-WT-1fU" id="H9r-Sb-FjS"/>
+                        <outlet property="shareButton" destination="5Zb-wT-NGS" id="dlc-Hv-Z8B"/>
+                        <outlet property="shareHeightConstraint" destination="XEZ-k4-0nf" id="LOp-hY-W1z"/>
+                        <outlet property="shareTrailingSpaceConstraint" destination="Y6w-DJ-AHz" id="afD-pC-Ns9"/>
+                        <outlet property="shareWidthConstraint" destination="782-vN-652" id="i5I-Wi-rEr"/>
+                        <outlet property="timeSlider" destination="iZK-GQ-47I" id="leq-32-bxi"/>
+                        <outlet property="titleLabel" destination="ODe-vT-0jj" id="tP9-1b-1gO"/>
+                        <outlet property="totalTimeLabel" destination="TwH-9e-O3I" id="k5Y-kV-Lrw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PQi-WJ-0RJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="657" y="419"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="news_krtv_close" width="17" height="17"/>
+        <image name="news_krtv_fullscreen" width="17" height="17"/>
+        <image name="news_krtv_play" width="29" height="29"/>
+        <image name="news_krtv_share" width="17" height="17"/>
+    </resources>
+</document>
