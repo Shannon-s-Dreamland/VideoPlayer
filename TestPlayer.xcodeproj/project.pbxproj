@@ -50,7 +50,7 @@
 		61B0AC721C2C029B006E8AAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61B0AC7F1C2C02B4006E8AAB /* Player+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Player+Types.swift"; sourceTree = "<group>"; };
 		61B0AC801C2C02B4006E8AAB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		61B0AC811C2C02B4006E8AAB /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Player.storyboard; path = ../Player.storyboard; sourceTree = "<group>"; };
+		61B0AC811C2C02B4006E8AAB /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
 		61B0AC821C2C02B4006E8AAB /* Player.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Player.xcassets; sourceTree = "<group>"; };
 		61B0AC831C2C02B4006E8AAB /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		61B0AC841C2C02B4006E8AAB /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -83,8 +83,8 @@
 		61B0AC4F1C2C029B006E8AAB = {
 			isa = PBXGroup;
 			children = (
-				61B0AC5A1C2C029B006E8AAB /* TestPlayer */,
 				61B0AC591C2C029B006E8AAB /* Products */,
+				61B0AC5A1C2C029B006E8AAB /* TestPlayer */,
 				61B0AC6F1C2C029B006E8AAB /* TestPlayerTests */,
 			);
 			sourceTree = "<group>";
@@ -101,13 +101,13 @@
 		61B0AC5A1C2C029B006E8AAB /* TestPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				61B0AC7E1C2C02B4006E8AAB /* Player */,
+				61B0AC911C2C02D4006E8AAB /* Supporting Files */,
+				61B0AC921C2C0319006E8AAB /* Utils */,
 				61B0AC971C2C04E4006E8AAB /* ListManager.swift */,
 				61B0AC9D1C2C4510006E8AAB /* ListViewController+PlayerControl.swift */,
 				61B0AC9B1C2C3860006E8AAB /* ListViewController.swift */,
 				61B0AC5F1C2C029B006E8AAB /* Main.storyboard */,
-				61B0AC7E1C2C02B4006E8AAB /* Player */,
-				61B0AC921C2C0319006E8AAB /* Utils */,
-				61B0AC911C2C02D4006E8AAB /* Supporting Files */,
 			);
 			path = TestPlayer;
 			sourceTree = "<group>";
@@ -156,9 +156,9 @@
 		61B0AC931C2C032C006E8AAB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				61B0AC811C2C02B4006E8AAB /* Player.storyboard */,
 				61B0AC851C2C02B4006E8AAB /* PlayProgress.swift */,
 				61B0AC861C2C02B4006E8AAB /* PlayProgressLayer.swift */,
+				61B0AC811C2C02B4006E8AAB /* Player.storyboard */,
 				61B0AC831C2C02B4006E8AAB /* PlayerView.swift */,
 			);
 			path = Views;
