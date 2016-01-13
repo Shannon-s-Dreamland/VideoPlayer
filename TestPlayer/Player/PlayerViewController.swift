@@ -19,9 +19,9 @@ class PlayerViewController: UIViewController {
     // MARK: Player
     
     lazy var player = AVPlayer()
-
+    
     weak var delegate: PlayerViewControllerDelegate?
-
+    
     // MARK: Player Item
     
     let playerItemQ = dispatch_queue_create("PlayerViewController.PlayerItem", DISPATCH_QUEUE_SERIAL)
@@ -40,7 +40,7 @@ class PlayerViewController: UIViewController {
                 titleLabel.text = playerModel?.title
                 viewState = .InCell
                 autoFadeOutControlBar()
-
+                
                 dispatch_async(playerItemQ) {
                     let asset = AVURLAsset(URL: URL, options: nil)
                     self.playerItem = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: PlayerViewController.assetKeysRequiredToPlay)
@@ -66,17 +66,6 @@ class PlayerViewController: UIViewController {
     }
     
     // MARK: View
-    
-    lazy var playWindow: UIWindow = {
-        let window = UIWindow()
-        window.windowLevel = UIWindowLevelStatusBar
-        window.hidden = true
-        window.userInteractionEnabled = true
-        window.rootViewController = UIViewController()
-        
-        return window
-    }()
-
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var playControlView: UIView!
@@ -95,7 +84,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     
     var shareButtonConstraints = [NSLayoutConstraint]()
-
+    
     var viewState: PlayerViewState = .Hidden {
         didSet {
             guard let delegate = delegate else {
@@ -119,32 +108,44 @@ class PlayerViewController: UIViewController {
                 let frame = delegate.frameOfPlayerInViewState(self.viewState)
                 let duration = 0.25
                 if viewState == .FullScreen {
+                    fullscreenButton.setImage(UIImage(named: "news_krtv_shrinkscreen"), forState: .Normal)
                     removeFromParentViewController()
-                    playWindow.rootViewController?.view.addSubview(view)
-                    UIView.animateWithDuration(duration) {
-                        self.playWindow.hidden = false
-                        self.view.hidden = false
-                        self.view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-                        self.view.frame = frame
+                    if let window = UIApplication.sharedApplication().keyWindow {
+                        window.addSubview(self.view)
+                        UIView.animateWithDuration(duration) {
+                            self.view.hidden = false
+                            self.view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                            self.view.frame = frame
+                        }
                     }
                 } else if viewState == .Hidden {
                     // Nothing
                 } else {
-                    if playWindow.hidden == false {
+                    fullscreenButton.setImage(UIImage(named: "news_krtv_fullscreen"), forState: .Normal)
+                    
+                    if oldValue == .Hidden {
+                        self.view.frame.origin = frame.origin
+                        self.view.frame.size = frame.size
+                        
+                        UIView.animateWithDuration(0.0) {
+                            delegate.addPlayerView(self.view)
+                            self.view.hidden = false
+                            self.view.transform = CGAffineTransformIdentity
+                            self.view.frame = frame
+                        }
+                    } else if oldValue == .FullScreen {
                         UIView.animateWithDuration(duration) {
-                            self.playWindow.hidden = true
                             delegate.addPlayerView(self.view)
                             self.view.hidden = false
                             self.view.transform = CGAffineTransformIdentity
                             self.view.frame = frame
                         }
                     } else {
-                        view.frame.origin = frame.origin
-                        view.frame.size = frame.size
-                        UIView.animateWithDuration(duration) {
+                        UIView.animateWithDuration(0.0) {
                             delegate.addPlayerView(self.view)
                             self.view.hidden = false
-                            self.view.frame.size = frame.size
+                            self.view.transform = CGAffineTransformIdentity
+                            self.view.frame = frame
                         }
                     }
                 }
@@ -155,7 +156,6 @@ class PlayerViewController: UIViewController {
                 animateHide()
             case .Hidden:
                 if oldValue == .FullScreen {
-                    playWindow.hidden = true
                     view.transform = CGAffineTransformIdentity
                 } else {
                     view.hidden = true
@@ -185,15 +185,15 @@ class PlayerViewController: UIViewController {
             } else {
                 loadingIndicator.hidden = true
                 playPauseButton.hidden = false
-
+                
             }
         }
     }
-
+    
     // MARK: Time
     
     var timeObserverToken: AnyObject?
-
+    
     var currentTime: Double {
         get {
             return CMTimeGetSeconds(player.currentTime())
@@ -208,10 +208,10 @@ class PlayerViewController: UIViewController {
             }
         }
     }
-
+    
     var duration: Double {
         guard let currentItem = player.currentItem else { return 0.0 }
-
+        
         return CMTimeGetSeconds(currentItem.duration)
     }
     
@@ -376,7 +376,7 @@ class PlayerViewController: UIViewController {
         
         delegate?.playerDidExit()
     }
-
+    
     func updateTimelabel() {
         if currentTime < 1 || !currentTime.isFinite {
             elapseLabel.text = "00:00"
@@ -434,7 +434,7 @@ class PlayerViewController: UIViewController {
         func resetTransform(exitVideo: Bool = false) {
             view.transform = initialPinchTransform!
             initialPinchTransform = nil
-
+            
             if exitVideo {
                 exit()
             }
@@ -489,14 +489,14 @@ extension PlayerViewController {
     func animateHide() {
         UIView.animateWithDuration(0.25, delay: 0.0, options: [.LayoutSubviews, .AllowUserInteraction],
             animations: { () -> Void in
-            self.playControlView.alpha = 0.0
+                self.playControlView.alpha = 0.0
             })
             { (finished) -> Void in }
     }
     
     func animateShow() {
         if viewState == .SmallMode { return }
-
+        
         UIView.animateWithDuration(0.25, delay: 0.0, options: [.LayoutSubviews, .AllowUserInteraction],
             animations: { () -> Void in
                 self.playControlView.alpha = 1.0
