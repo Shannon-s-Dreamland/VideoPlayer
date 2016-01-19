@@ -19,9 +19,9 @@ class PlayerViewController: UIViewController {
     // MARK: Player
     
     lazy var player = AVPlayer()
-    
+
     weak var delegate: PlayerViewControllerDelegate?
-    
+
     // MARK: Player Item
     
     let playerItemQ = dispatch_queue_create("PlayerViewController.PlayerItem", DISPATCH_QUEUE_SERIAL)
@@ -39,8 +39,7 @@ class PlayerViewController: UIViewController {
                 loadingIndicator.hidden = false
                 titleLabel.text = playerModel?.title
                 viewState = .InCell
-                autoFadeOutControlBar()
-                
+
                 dispatch_async(playerItemQ) {
                     let asset = AVURLAsset(URL: URL, options: nil)
                     self.playerItem = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: PlayerViewController.assetKeysRequiredToPlay)
@@ -54,12 +53,15 @@ class PlayerViewController: UIViewController {
     
     var playerItem: AVPlayerItem? = nil {
         didSet {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.cancelAutoFadeOutControlBar()
+            }
+            
             player.replaceCurrentItemWithPlayerItem(playerItem)
             
-            if playerItem == nil {
+            if playerItem == nil || oldValue != nil {
                 cleanUpPlayerPeriodicTimeObserver()
-            }
-            else {
+            } else {
                 setupPlayerPeriodicTimeObserver()
             }
         }
@@ -84,7 +86,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     
     var shareButtonConstraints = [NSLayoutConstraint]()
-    
+
     var viewState: PlayerViewState = .Hidden {
         didSet {
             guard let delegate = delegate else {
@@ -126,7 +128,7 @@ class PlayerViewController: UIViewController {
                     if oldValue == .Hidden {
                         self.view.frame.origin = frame.origin
                         self.view.frame.size = frame.size
-                        
+
                         UIView.animateWithDuration(0.0) {
                             delegate.addPlayerView(self.view)
                             self.view.hidden = false
@@ -157,10 +159,9 @@ class PlayerViewController: UIViewController {
             case .Hidden:
                 if oldValue == .FullScreen {
                     view.transform = CGAffineTransformIdentity
-                } else {
-                    view.hidden = true
-                    removeFromParentViewController()
                 }
+                view.hidden = true
+                removeFromParentViewController()
             default:()
             }
             
@@ -185,15 +186,15 @@ class PlayerViewController: UIViewController {
             } else {
                 loadingIndicator.hidden = true
                 playPauseButton.hidden = false
-                
+
             }
         }
     }
-    
+
     // MARK: Time
     
     var timeObserverToken: AnyObject?
-    
+
     var currentTime: Double {
         get {
             return CMTimeGetSeconds(player.currentTime())
@@ -204,14 +205,15 @@ class PlayerViewController: UIViewController {
             loadingState = true
             player.seekToTime(newTime) { finished in
                 self.loadingState = false
+                self.autoFadeOutControlBar()
                 self.player.play()
             }
         }
     }
-    
+
     var duration: Double {
         guard let currentItem = player.currentItem else { return 0.0 }
-        
+
         return CMTimeGetSeconds(currentItem.duration)
     }
     
@@ -252,8 +254,6 @@ class PlayerViewController: UIViewController {
     
     @IBAction func touchSliderTouchUp(sender: PlayProgress) {
         currentTime = Double(sender.currentValue) * duration
-        player.play()
-        autoFadeOutControlBar()
     }
     
     @IBAction func share(sender: UIButton) {
@@ -321,6 +321,9 @@ class PlayerViewController: UIViewController {
             if newRate == 0.0 {
                 playPauseButton.setImage(UIImage(named: "news_krtv_play"), forState: .Normal)
                 cancelAutoFadeOutControlBar()
+                if currentTime == duration {
+                    exit()
+                }
             } else {
                 playPauseButton.setImage(UIImage(named: "news_krtv_pause"), forState: .Normal)
                 autoFadeOutControlBar()
@@ -336,8 +339,8 @@ class PlayerViewController: UIViewController {
             }
             
             if newStatus == .Failed {
-                exit()
                 loadingState = false
+                exit()
                 delegate?.handlePlayError(.CannotPlay(des: NSLocalizedString("当前视频播放失败", comment: "")))
             }
             else if newStatus == .ReadyToPlay {
@@ -371,12 +374,14 @@ class PlayerViewController: UIViewController {
     // MARK: - Convenience Hanlder
     
     func exit() {
-        playerItem = nil
+        dispatch_async(playerItemQ) {
+            self.playerItem = nil
+        }
         viewState = .Hidden
         
         delegate?.playerDidExit()
     }
-    
+
     func updateTimelabel() {
         if currentTime < 1 || !currentTime.isFinite {
             elapseLabel.text = "00:00"
@@ -425,7 +430,11 @@ class PlayerViewController: UIViewController {
         if viewState == .SmallMode {
             viewState = .FullScreen
         } else {
-            animateShow()
+            if playControlView.alpha == 0 {
+                animateShow()
+            } else {
+                animateHide()
+            }
         }
     }
     
@@ -434,7 +443,7 @@ class PlayerViewController: UIViewController {
         func resetTransform(exitVideo: Bool = false) {
             view.transform = initialPinchTransform!
             initialPinchTransform = nil
-            
+
             if exitVideo {
                 exit()
             }
@@ -489,14 +498,14 @@ extension PlayerViewController {
     func animateHide() {
         UIView.animateWithDuration(0.25, delay: 0.0, options: [.LayoutSubviews, .AllowUserInteraction],
             animations: { () -> Void in
-                self.playControlView.alpha = 0.0
+            self.playControlView.alpha = 0.0
             })
             { (finished) -> Void in }
     }
     
     func animateShow() {
         if viewState == .SmallMode { return }
-        
+
         UIView.animateWithDuration(0.25, delay: 0.0, options: [.LayoutSubviews, .AllowUserInteraction],
             animations: { () -> Void in
                 self.playControlView.alpha = 1.0
